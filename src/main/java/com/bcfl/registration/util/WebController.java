@@ -1,29 +1,33 @@
 package com.bcfl.registration.util;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class WebController {
 
-    @RequestMapping("/")
-    @ResponseBody
-    public String home(@AuthenticationPrincipal OidcUser oidcUser) {
-        return "Welcome, " + oidcUser.getFullName();
+//    @GetMapping("/")
+//    public String home(@AuthenticationPrincipal OidcUser oidcUser) {
+//        return "Welcome, " + oidcUser.getFullName();
+//    }
+
+    @GetMapping("/")
+    public String home() {
+        return "Welcome to my world!";
     }
 
-    @RequestMapping("/attributes")
-    @ResponseBody
-    public String attributes(@AuthenticationPrincipal OidcUser oidcUser) {
-        return oidcUser.getAttributes().toString();
-    }
 
-    @RequestMapping("/authorities")
-    @ResponseBody
-    public String authorities(@AuthenticationPrincipal OidcUser oidcUser) {
-        return oidcUser.getAuthorities().toString();
-    }
+//    @GetMapping("/attributes")
+//    public String attributes(@AuthenticationPrincipal OidcUser oidcUser) {
+//        return oidcUser.getAttributes().toString();
+//    }
+//
+//    @GetMapping("/authorities")
+//    public String authorities(@AuthenticationPrincipal OidcUser oidcUser) {
+//        return oidcUser.getAuthorities().toString();
+//    }
 }
