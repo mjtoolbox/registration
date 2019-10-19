@@ -1,9 +1,15 @@
-okta:
-  oauth2:
-    issuer: https://dev-575858.okta.com/oauth2/default
-    client-id: 0oa1awgta8Rpcn0ER357
-    client-secret: znsvsUWM69MV1X1iyJE8GNJfDwULk8pT_irrB2gj
-    clientAuthenticationScheme: form
-    scope: openid profile email
-  resource:
-    userInfoUri: https://dev-575858.okta.com/oauth2/default/v1/userinfo
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          okta:
+#            client-id: 0oa1awgta8Rpcn0ER357
+#            client-secret: znsvsUWM69MV1X1iyJE8GNJfDwULk8pT_irrB2gj
+#            scope: openid, email, profile
+#        provider:
+#          okta:
+#            issuer-uri: https://dev-575858.okta.com/oauth2/default
+
+
+#https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot

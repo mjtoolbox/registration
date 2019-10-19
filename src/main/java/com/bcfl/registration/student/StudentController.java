@@ -3,17 +3,26 @@ package com.bcfl.registration.student;
 
 import com.bcfl.registration.guardian.Guardian;
 import com.bcfl.registration.guardian.GuardianRepository;
+import com.bcfl.registration.util.User;
+import com.bcfl.registration.util.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @CrossOrigin()
 @RestController
+@Slf4j
 public class StudentController {
 
     @Resource
@@ -21,6 +30,9 @@ public class StudentController {
 
     @Resource
     GuardianRepository guardianRepository;
+
+    @Resource
+    UserRepository userRepository;
 
     @GetMapping("/students")
     public List<Student> retrieveAllStudents() {
@@ -35,8 +47,30 @@ public class StudentController {
     }
 
 
+//    @PostMapping("/guardians/{guardian_id}/students")
+//    public Student createStudent(@PathVariable long guardian_id, @Valid @RequestBody Student student) {
+//        Guardian guardian = guardianRepository.findById(guardian_id)
+//                .orElseThrow(() -> new ResourceNotFoundException("Guardian not found with ID: " + guardian_id));
+//
+//        student.setGuardian_id(guardian_id);
+//        student.setGuardian(guardian);
+//
+//        return studentRepository.save(student);
+//    }
+
+
     @PostMapping("/guardians/{guardian_id}/students")
-    public Student createStudent(@PathVariable long guardian_id, @Valid @RequestBody Student student) {
+    public Student createStudent(@PathVariable long guardian_id, @Valid @RequestBody Student student,
+                                 @AuthenticationPrincipal OAuth2User principal) throws URISyntaxException {
+        log.info("Request to create Student ");
+        Map<String, Object> details = principal.getAttributes();
+        String userId = details.get("sub").toString();
+
+        // check to see if user already exists
+        Optional<User> user = userRepository.findById(userId);
+        log.info("**************** user " + user);
+
+
         Guardian guardian = guardianRepository.findById(guardian_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Guardian not found with ID: " + guardian_id));
 
