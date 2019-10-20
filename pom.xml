@@ -10,12 +10,12 @@
 	</parent>
 	<groupId>com.bcfl</groupId>
 	<artifactId>registration</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>registration</name>
 	<description>Student Registration Microservice for BCFL</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
