@@ -1,5 +1,6 @@
 package com.bcfl.registration.authentication;
 
+import com.bcfl.registration.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,9 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.io.Serializable;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 
@@ -86,10 +85,11 @@ public class JwtTokenUtil implements Serializable {
     public String generateToken(UserDetails userDetails) {
 
         Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
-        claims.put("scopes", Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        claims.put("scopes", userDetails.getAuthorities());
 
         return createJWT(claims, userDetails.getUsername());
     }
+
 
 
     private String createJWT(Map<String, Object> claims, String subject) {
